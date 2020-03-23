@@ -1,11 +1,19 @@
 {
-  "name": "tjbot",
-  "version": "1.0.0",
-  "description": "TJBot MCC Project",
-  "main": "app.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "LuisR",
-  "license": "ISC"
+    "name": "node-tjbot",
+    "version": "1.0.0",
+    "description": "TJBot MCC Project",
+    "main": "app.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "LuisR",
+    "license": "ISC",
+    "dependencies": {
+        "axios": "^0.19.2",
+        "colors": "^1.4.0",
+        "ibm-watson": "^5.4.0",
+        "moment": "^2.24.0",
+        "tjbot": "^1.5.3",
+        "yargs": "^15.3.0"
+    }
 }
