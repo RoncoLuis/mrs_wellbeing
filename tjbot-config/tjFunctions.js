@@ -41,9 +41,9 @@ const cargarDB = (filePath) => {
     });
 }
 
-/**Listar la conversación completa */
-const getListado = () => {
-    cargarDB();
+const getListado = (filePath) => {
+    /**Lista la conversación completa del usuario */
+    cargarDB(filePath);
     return conversation;
 }
 
