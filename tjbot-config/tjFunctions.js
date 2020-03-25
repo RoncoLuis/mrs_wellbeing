@@ -1,55 +1,52 @@
 const fs = require("fs");
 const colors = require("colors");
 
-/**todas las notas se guardaran en un arreglo */
-let conversation = [];
-
-const create_file = (username) => {
+/**Obtiene la ruta de acceso al archivo */
+const getFileAccess = (username) => {
     // sintaxis date MM-DD-YYYY. Enero comienza con el mes 0
     let date = new Date();
-    /**Obtenemos string que será la url de acceso al archivo */
-    username = `${username}-${date.getMonth()}-${date.getDate()}-${date.getFullYear()}.txt`;
+    return `output/${username}-${date.getMonth()}-${date.getDate()}-${date.getFullYear()}.txt`;
+}
 
-    fs.readFile(`output/${username}`, (err) => {
+const create_file = (fileAcess) => {
+    fs.readFile(fileAcess, (err) => {
         if (err) {
-            fs.appendFile(`output/${username}`, '', (err) => {
+            fs.appendFile(fileAcess, '', (err) => {
                 if (err) throw err;
-                console.log(colors.green("archivo creado"));
+                console.log(colors.green("nuevo archivo creado"));
             });
         } else {
-            console.log(colors.yellow("El archivo ya extiste"));
+            console.log(colors.yellow(`El archivo ${fileAcess} ya existe. Continue con la sesión`));
         }
     });
-    return `output/${username}`;
+
+    return fileAcess;
 }
 
 const fill_conversation = (voice, filePath) => {
-    fs.appendFile(`${filePath}`, voice, (err) => {
+    fs.appendFile(filePath, voice, (err) => {
         if (err) throw err;
         console.log(colors.green("La información se ha agregado correctamente"));
     });
 }
 
-const cargarDB = (filePath) => {
-    fs.readFile(`${filePath}`, 'utf-8', (err, data) => {
+const getData = (filePath, callback) => {
+    fs.readFile(filePath, 'utf-8', (err, resp) => {
         if (err) {
-            console.log('error: ', err);
-        } else {
-            console.log(data);
-            conversation = data;
+            console.log("aqui es");
         }
+        callback(null, resp);
     });
 }
 
-const getListado = (filePath) => {
-    /**Lista la conversación completa del usuario */
-    cargarDB(filePath);
-    return conversation;
+const exit_app = () => {
+    process.exit();
 }
 
-/**se exportan las funciones que se utilizan en app.js */
 module.exports = {
     create_file,
     fill_conversation,
-    getListado
+    getData,
+    exit_app,
+    getFileAccess
 }
